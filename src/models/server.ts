@@ -1,5 +1,7 @@
 import express, { Application } from 'express';
 import connection from '../db/connection';
+import routesProducto from '../routes/producto.routes';
+import routesDefault from '../routes/default.routes';
 
 class Server {
     private app: Application;
@@ -9,7 +11,8 @@ class Server {
         this.app = express();
         this.port = process.env.PORT || '3000';
         this.listen();
-        this.conectDB()
+        this.conectDB();
+        this.routes();
     }
 
     listen() {
@@ -26,6 +29,11 @@ class Server {
                 console.log('Base de datos conectada exitosamente!');
             }
         })
+    }
+
+    routes() {
+        this.app.use('/', routesDefault);
+        this.app.use('/api/productos', routesProducto );
     }
 
 }
