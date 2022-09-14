@@ -43,7 +43,9 @@ export const loginUser = (req: Request, res: Response) => {
                         // Login exitoso -- Generamos el token
                         const token = jwt.sign({
                             nombre: nombre,
-                        }, process.env.SECRET_KEY || 'pepito123')
+                        }, process.env.SECRET_KEY || 'pepito123', {
+                            expiresIn: '10000'
+                        })
 
                         res.json({
                             token
